@@ -2,7 +2,11 @@ package com.example.javadevelopersnairobi.apollo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
@@ -75,5 +79,35 @@ public class MainActivity extends AppCompatActivity {
 
 			}
 		});
+	}
+
+	public void submitPost(View v){
+		EditText mtitle = findViewById(R.id.editText_title);
+		mtitle.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		EditText mdescription = findViewById(R.id.editText_description);
+		mdescription.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+
+		MyApolloClient.getMyApolloClient().mutate(
+				NewPostMutation.builder()
+				.title(mtitle.getText().toString())
+				.description(mdescription.getText().toString())
+				.build()
+		).enqueue(new ApolloCall.Callback<NewPostMutation.Data>() {
+			@Override
+			public void onResponse(@NotNull Response<NewPostMutation.Data> response) {
+				MainActivity.this.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						Toast.makeText(MainActivity.this, "Successfully Added ", Toast.LENGTH_SHORT).show();
+					}
+				});
+			}
+
+			@Override
+			public void onFailure(@NotNull ApolloException e) {
+
+			}
+		});
+
 	}
 }

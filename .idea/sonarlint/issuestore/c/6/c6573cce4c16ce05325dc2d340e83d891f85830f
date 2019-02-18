@@ -1,0 +1,4 @@
+
+Tsquid:S1118":Add a private constructor to hide the implicit public one.(ÌÇ®üşÿÿÿÿ
+ysquid:S1450"]Remove the "myApolloClient" field and declare it as a local variable in the relevant methods.(ÑÇë8ñ§«ù-
+9squid:S1700"Rename field "myApolloClient"(ÑÇë8Øä³ù-
